@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ritu & Ankit — Wedding Invitation</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&family=Noto+Serif+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --m:#6B0F1A;--md:#4A0A12;--mm:#8B1A2A;
+  --g:#C9A84C;--gl:#E8C97A;--gp:#F5E6B8;
+  --iv:#FDF6E3;--iw:#F9EFD0;--cr:#FDFAF2;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cr);overflow-x:hidden}
+.cursor{width:12px;height:12px;background:var(--g);border-radius:50%;position:fixed;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);mix-blend-mode:multiply}
+.cursor-ring{width:36px;height:36px;border:1.5px solid var(--g);border-radius:50%;position:fixed;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:all .18s ease;opacity:.5}
+/* Gate */
+#gate{position:fixed;inset:0;z-index:9000;display:flex;overflow:hidden}
+.gp{width:50%;height:100%;background:var(--md);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;transition:transform 1.8s cubic-bezier(.77,0,.18,1)}
+.gp.l{border-right:2px solid var(--g)}.gp.r{border-left:2px solid var(--g)}
+.gate-open .gp.l{transform:translateX(-100%)}.gate-open .gp.r{transform:translateX(100%)}
+#gate.gone{display:none}
+.gpat{position:absolute;inset:0;opacity:.1}
+.gin{position:relative;z-index:2;text-align:center;padding:2rem}
+.gdev{font-family:'Noto Serif Devanagari',serif;font-size:clamp(.85rem,2vw,1.3rem);color:var(--gl);letter-spacing:.1em;margin-bottom:1rem}
+.gnm{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,6vw,5rem);color:var(--g);font-weight:700;letter-spacing:.06em}
+.gtap{font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gp);animation:pulse 2s ease-in-out infinite;position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);white-space:nowrap}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
+/* canvas */
+#cvs{position:fixed;inset:0;pointer-events:none;z-index:100}
+/* music */
+
+/* nav dots */
+.ndots{position:fixed;left:1.2rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:300}
+.nd{width:8px;height:8px;border-radius:50%;border:1.5px solid var(--g);background:transparent;transition:all .3s}
+.nd.a,.nd:hover{background:var(--g);transform:scale(1.4)}
+/* hero */
+#hero{min-height:100vh;background:linear-gradient(160deg,var(--md) 0%,var(--m) 50%,var(--md) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5rem 2rem 4rem;position:relative;overflow:hidden}
+.hmand{position:absolute;width:min(700px,100vw);height:min(700px,100vw);opacity:.05;top:50%;left:50%;transform:translate(-50%,-50%);animation:spin 80s linear infinite}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.hframe{position:absolute;inset:1.5rem;border:1px solid rgba(201,168,76,.18);border-radius:4px;pointer-events:none}
+.hframe::before{content:'';position:absolute;inset:6px;border:1px solid rgba(201,168,76,.08);border-radius:2px}
+.corn{position:absolute;width:44px;height:44px;color:var(--g);opacity:.5}
+.corn.tl{top:1.5rem;left:1.5rem}.corn.tr{top:1.5rem;right:1.5rem;transform:scaleX(-1)}
+.corn.bl{bottom:1.5rem;left:1.5rem;transform:scaleY(-1)}.corn.br{bottom:1.5rem;right:1.5rem;transform:scale(-1)}
+.gnt{font-family:'Noto Serif Devanagari',serif;font-size:clamp(1rem,2.5vw,1.5rem);color:var(--gl);letter-spacing:.12em;margin-bottom:1.8rem;position:relative;z-index:2;animation:fu .9s .3s both}
+.div{display:flex;align-items:center;gap:1rem;margin:.8rem 0;position:relative;z-index:2}
+.dl{height:1px;width:clamp(30px,6vw,80px);background:linear-gradient(90deg,transparent,var(--g))}
+.dl.r{background:linear-gradient(90deg,var(--g),transparent)}
+.csvg{width:min(340px,80vw);filter:drop-shadow(0 20px 50px rgba(0,0,0,.5));position:relative;z-index:2;animation:fu 1.2s .5s both}
+.hnm{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,9vw,5.5rem);font-weight:700;color:var(--gl);letter-spacing:.06em;line-height:1;position:relative;z-index:2;animation:fu .9s .8s both;text-shadow:0 4px 30px rgba(201,168,76,.3)}
+.hnm .and{font-style:italic;font-size:clamp(1.8rem,5vw,2.8rem);display:block;margin:-.2rem 0;color:var(--g)}
+.htag{font-size:clamp(.82rem,1.8vw,1rem);color:rgba(253,246,227,.7);max-width:520px;line-height:1.9;margin-top:1.4rem;position:relative;z-index:2;animation:fu .9s 1s both}
+.hfam{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1rem,2vw,1.2rem);color:var(--g);margin-top:.6rem;position:relative;z-index:2;animation:fu .9s 1.2s both}
+.shint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:.3rem;animation:fu 1s 2s both}
+.shint span{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(201,168,76,.5)}
+.sarr{width:18px;height:18px;border-right:1.5px solid rgba(201,168,76,.5);border-bottom:1.5px solid rgba(201,168,76,.5);transform:rotate(45deg);animation:bou 1.8s ease-in-out infinite}
+@keyframes bou{0%,100%{transform:rotate(45deg) translate(0,0);opacity:.4}50%{transform:rotate(45deg) translate(3px,3px);opacity:1}}
+@keyframes fu{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+/* countdown */
+#cd{background:linear-gradient(135deg,var(--iw),var(--iv));padding:5rem 2rem;position:relative}
+#cd::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--g),var(--m),var(--g),transparent)}
+.sh{text-align:center;margin-bottom:3rem}
+.slb{font-size:.7rem;font-weight:600;letter-spacing:.35em;text-transform:uppercase;color:var(--m);display:block;margin-bottom:.5rem}
+.st{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:700;color:var(--md);line-height:1.2}
+.sti{font-family:'Noto Serif Devanagari',serif;font-size:clamp(1rem,2.5vw,1.5rem);color:var(--g);display:block;margin-top:.2rem;font-weight:400}
+.cdg{display:flex;justify-content:center;gap:clamp(.8rem,2.5vw,2rem);flex-wrap:wrap}
+.cdb{background:var(--md);border:1px solid var(--g);border-radius:14px;padding:clamp(1rem,3vw,1.8rem) clamp(1.2rem,3.5vw,2.5rem);text-align:center;min-width:clamp(72px,16vw,110px);position:relative;overflow:hidden}
+.cdb::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.08),transparent)}
+.cdn{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,7vw,4.5rem);font-weight:700;color:var(--gl);line-height:1;display:block;position:relative}
+.cdl{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.6);display:block;margin-top:.3rem}
+.cds{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.5rem);color:var(--g);align-self:flex-start;padding-top:clamp(1rem,3vw,1.8rem);opacity:.6;animation:blk 1s ease-in-out infinite}
+@keyframes blk{0%,100%{opacity:.6}50%{opacity:.15}}
+/* schedule */
+#sch{background:var(--md);padding:6rem 2rem;position:relative;overflow:hidden}
+#sch::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(201,168,76,.05) 0%,transparent 70%)}
+.tl{max-width:740px;margin:0 auto;position:relative;padding:2rem 0}
+.tl::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,var(--g) 10%,var(--g) 90%,transparent);transform:translateX(-50%)}
+.tli{display:flex;gap:2rem;margin-bottom:3.5rem;position:relative;align-items:flex-start;opacity:0;transform:translateY(25px);transition:all .8s cubic-bezier(.16,1,.3,1)}
+.tli.v{opacity:1;transform:translateY(0)}
+.tli:nth-child(odd){flex-direction:row}.tli:nth-child(even){flex-direction:row-reverse}
+.tlc{width:calc(50% - 3rem);background:linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid rgba(201,168,76,.2);border-radius:14px;padding:1.6rem;backdrop-filter:blur(8px);transition:all .3s;cursor:default}
+.tlc:hover{border-color:var(--g);transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,.25),0 0 25px rgba(201,168,76,.1)}
+.tld{position:absolute;left:50%;transform:translateX(-50%);width:42px;height:42px;border-radius:50%;background:var(--md);border:2px solid var(--g);display:flex;align-items:center;justify-content:center;font-size:.95rem;z-index:2;top:1.3rem;box-shadow:0 0 0 4px var(--md),0 0 18px rgba(201,168,76,.25)}
+.tls{width:calc(50% - 3rem)}
+.etg{font-size:.6rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--g);opacity:.7;margin-bottom:.4rem;display:block}
+.enm{font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,2.5vw,1.7rem);font-weight:700;color:var(--gl);margin-bottom:.25rem}
+.enh{font-family:'Noto Serif Devanagari',serif;font-size:.9rem;color:var(--g);display:block;margin-bottom:.9rem;opacity:.85}
+.er{display:flex;align-items:flex-start;gap:.5rem;margin-bottom:.4rem;font-size:.82rem;color:rgba(253,246,227,.7)}
+.er .ic{font-size:.85rem;flex-shrink:0;margin-top:1px}
+.er strong{color:var(--iv)}
+/* venue */
+#ven{background:linear-gradient(160deg,var(--iw),var(--iv));padding:5rem 2rem}
+.vg{max-width:860px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.vc{background:var(--md);border:1px solid rgba(201,168,76,.25);border-radius:18px;padding:2.2rem 1.8rem;text-align:center;transition:all .3s;position:relative;overflow:hidden}
+.vc::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(201,168,76,.08),transparent 60%)}
+.vc:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(74,10,18,.3),0 0 0 1px rgba(201,168,76,.35)}
+.vi{font-size:2.2rem;margin-bottom:.8rem}
+.vn{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--gl);margin-bottom:.4rem}
+.va{font-size:.82rem;color:rgba(253,246,227,.6);line-height:1.7;margin-bottom:1.3rem}
+.mbt{cursor:pointer;display:inline-flex;align-items:center;gap:.45rem;padding:.65rem 1.6rem;background:linear-gradient(135deg,var(--g),var(--gl));color:var(--md);border-radius:100px;font-size:.78rem;font-weight:700;text-decoration:none;letter-spacing:.05em;transition:all .3s;cursor:pointer;border:none}
+.mbt:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(201,168,76,.4)}
+/* blessings */
+#bl{background:var(--md);padding:5rem 2rem 3rem;text-align:center;position:relative;overflow:hidden}
+#bl::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--g),var(--mm),var(--g),transparent)}
+.bln{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,7vw,4.5rem);font-weight:700;color:var(--gl);line-height:1;margin-bottom:.4rem}
+.blt{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(.95rem,2.5vw,1.3rem);color:rgba(201,168,76,.7);margin-bottom:2rem}
+.dr{display:flex;justify-content:center;gap:1.5rem;margin:1.8rem 0;font-size:1.5rem}
+.dy{animation:flk 2s ease-in-out infinite}.dy:nth-child(2){animation-delay:.6s}.dy:nth-child(3){animation-delay:1.2s}
+@keyframes flk{0%,100%{transform:scale(1)rotate(-3deg);filter:brightness(1)}50%{transform:scale(1.1)rotate(3deg);filter:brightness(1.3)}}
+.blb{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1rem,2.5vw,1.5rem);color:var(--gl);margin:1.8rem 0 1rem}
+.blh{font-size:.85rem;color:rgba(253,246,227,.55);letter-spacing:.08em;line-height:2}
+.blh strong{color:var(--g);font-weight:500}
+/* reveal */
+.rv{opacity:0;transform:translateY(25px);transition:all .9s cubic-bezier(.16,1,.3,1)}
+.rv.v{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--iw)}::-webkit-scrollbar-thumb{background:var(--g);border-radius:10px}
+a, button, .mbt, .nd, #mbt { cursor: pointer !important; }
+@media(max-width:760px){
+  .ndots{display:none}
+  .tl::before{left:22px}
+  .tli{flex-direction:column!important;padding-left:56px}
+  .tlc{width:100%}.tld{left:22px;top:0;transform:none}.tls{display:none}
+  .vg{grid-template-columns:1fr}
+}
+@media(max-width:480px){.cds{display:none}}
+</style>
+</head>
+<body>
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+<nav class="ndots" id="ndts">
+  <div class="nd a" onclick="go('hero')"></div>
+  <div class="nd" onclick="go('cd')"></div>
+  <div class="nd" onclick="go('sch')"></div>
+  <div class="nd" onclick="go('ven')"></div>
+  <div class="nd" onclick="go('bl')"></div>
+</nav>
+
+<canvas id="cvs"></canvas>
+<!-- GATE -->
+<div id="gate" onclick="openG()">
+  <div class="gp l">
+    <svg class="gpat" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice">
+      <defs><pattern id="gpt" x="0" y="0" width="80" height="120" patternUnits="userSpaceOnUse">
+        <path d="M40,10 Q55,30 55,50 Q55,80 40,90 Q25,80 25,50 Q25,30 40,10Z" fill="none" stroke="#C9A84C" stroke-width=".7"/>
+        <circle cx="40" cy="100" r="4" fill="none" stroke="#C9A84C" stroke-width=".7"/>
+      </pattern></defs>
+      <rect width="400" height="800" fill="url(#gpt)"/>
+    </svg>
+    <div class="gin"><div class="gdev">॥ श्री गणेशाय नमः ॥</div><div class="gnm">Ritu</div></div>
+  </div>
+  <div class="gp r">
+    <svg class="gpat" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice"><rect width="400" height="800" fill="url(#gpt)"/></svg>
+    <div class="gin"><div class="gdev">शुभ विवाह</div><div class="gnm">Ankit</div></div>
+    <div class="gtap">✦ Tap to Enter ✦</div>
+  </div>
+</div>
+<!-- HERO -->
+<section id="hero">
+  <svg class="hmand" viewBox="0 0 500 500">
+    <circle cx="250" cy="250" r="240" fill="none" stroke="#C9A84C" stroke-width=".5"/>
+    <circle cx="250" cy="250" r="190" fill="none" stroke="#C9A84C" stroke-width=".5"/>
+    <circle cx="250" cy="250" r="140" fill="none" stroke="#C9A84C" stroke-width=".5"/>
+    <circle cx="250" cy="250" r="90" fill="none" stroke="#C9A84C" stroke-width=".5"/>
+    <line x1="250" y1="10" x2="250" y2="490" stroke="#C9A84C" stroke-width=".3"/>
+    <line x1="10" y1="250" x2="490" y2="250" stroke="#C9A84C" stroke-width=".3"/>
+    <line x1="80" y1="80" x2="420" y2="420" stroke="#C9A84C" stroke-width=".3"/>
+    <line x1="420" y1="80" x2="80" y2="420" stroke="#C9A84C" stroke-width=".3"/>
+    <path d="M250,60 Q270,150 250,185 Q230,150 250,60Z" fill="none" stroke="#C9A84C" stroke-width=".5"/>
+    <path d="M250,60 Q270,150 250,185 Q230,150 250,60Z" fill="none" stroke="#C9A84C" stroke-width=".5" transform="rotate(45 250 250)"/>
+    <path d="M250,60 Q270,150 250,185 Q230,150 250,60Z" fill="none" stroke="#C9A84C" stroke-width=".5" transform="rotate(90 250 250)"/>
+    <path d="M250,60 Q270,150 250,185 Q230,150 250,60Z" fill="none" stroke="#C9A84C" stroke-width=".5" transform="rotate(135 250 250)"/>
+    <path d="M250,60 Q270,150 250,185 Q230,150 250,60Z" fill="none" stroke="#C9A84C" stroke-width=".5" transform="rotate(180 250 250)"/>
+    <path d="M250,60 Q270,150 250,185 Q230,150 250,60Z" fill="none" stroke="#C9A84C" stroke-width=".5" transform="rotate(225 250 250)"/>
+    <path d="M250,60 Q270,150 250,185 Q230,150 250,60Z" fill="none" stroke="#C9A84C" stroke-width=".5" transform="rotate(270 250 250)"/>
+    <path d="M250,60 Q270,150 250,185 Q230,150 250,60Z" fill="none" stroke="#C9A84C" stroke-width=".5" transform="rotate(315 250 250)"/>
+  </svg>
+  <div class="hframe"></div>
+  <svg class="corn tl" viewBox="0 0 44 44"><path d="M2,2 L2,18 M2,2 L18,2 M2,2 Q10,2 10,10 Q10,18 2,18" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="5" cy="5" r="2" fill="currentColor"/></svg>
+  <svg class="corn tr" viewBox="0 0 44 44"><path d="M2,2 L2,18 M2,2 L18,2 M2,2 Q10,2 10,10 Q10,18 2,18" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="5" cy="5" r="2" fill="currentColor"/></svg>
+  <svg class="corn bl" viewBox="0 0 44 44"><path d="M2,2 L2,18 M2,2 L18,2 M2,2 Q10,2 10,10 Q10,18 2,18" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="5" cy="5" r="2" fill="currentColor"/></svg>
+  <svg class="corn br" viewBox="0 0 44 44"><path d="M2,2 L2,18 M2,2 L18,2 M2,2 Q10,2 10,10 Q10,18 2,18" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="5" cy="5" r="2" fill="currentColor"/></svg>
+  <div class="gnt">॥ श्री गणेशाय नमः ॥</div>
+  <div class="div"><div class="dl"></div><svg width="26" height="26" viewBox="0 0 26 26" style="opacity:.65"><path d="M13,2 Q18,7 16,12 Q14,18 8,20 Q6,13 10,8 Q12,5 13,2Z" fill="#C9A84C"/><circle cx="13" cy="13" r="3" fill="none" stroke="#C9A84C" stroke-width="1"/></svg><div class="dl r"></div></div>
+  <!-- Couple SVG -->
+  <svg class="csvg" viewBox="0 0 340 390" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="ag" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#C9A84C" stop-opacity=".18"/><stop offset="100%" stop-color="#C9A84C" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gs" cx="38%" cy="30%" r="64%"><stop offset="0%" stop-color="#FFD5B0"/><stop offset="100%" stop-color="#C07838"/></radialGradient>
+      <radialGradient id="bsk" cx="38%" cy="30%" r="64%"><stop offset="0%" stop-color="#FDDBB4"/><stop offset="100%" stop-color="#BE7638"/></radialGradient>
+      <filter id="hg"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>
+    <ellipse cx="170" cy="200" rx="165" ry="185" fill="url(#ag)"/>
+    <path d="M28,390 L28,185 Q28,48 170,48 Q312,48 312,185 L312,390" fill="none" stroke="#C9A84C" stroke-width="2.5" opacity=".75" filter="url(#hg)"/>
+    <path d="M42,390 L42,192 Q42,70 170,70 Q298,70 298,192 L298,390" fill="none" stroke="#C9A84C" stroke-width="1.2" opacity=".35"/>
+    <circle cx="170" cy="48" r="13" fill="#C9A84C" opacity=".95" filter="url(#hg)"/>
+    <circle cx="170" cy="48" r="6" fill="#F5E6B8"/>
+    <polygon points="170,24 163,44 177,44" fill="#C9A84C" opacity=".85" filter="url(#hg)"/>
+    <circle cx="170" cy="18" r="5" fill="#C9A84C" opacity=".6"/>
+    <path d="M42,200 Q170,158 298,200" stroke="#8B1A2A" stroke-width="4.5" fill="none" opacity=".7"/>
+    <path d="M42,200 Q170,163 298,200" stroke="#C9A84C" stroke-width="1.5" fill="none" opacity=".5"/>
+    <circle cx="75" cy="192" r="5.5" fill="#C9A84C" opacity=".85" filter="url(#hg)"/>
+    <circle cx="120" cy="174" r="4.5" fill="#8B1A2A" opacity=".9"/>
+    <circle cx="170" cy="168" r="7" fill="#C9A84C" opacity=".95" filter="url(#hg)"/>
+    <circle cx="220" cy="174" r="4.5" fill="#8B1A2A" opacity=".9"/>
+    <circle cx="265" cy="192" r="5.5" fill="#C9A84C" opacity=".85" filter="url(#hg)"/>
+    <rect x="28" y="372" width="284" height="18" rx="4" fill="#6B0F1A" opacity=".6"/>
+    <rect x="48" y="367" width="244" height="7" rx="2" fill="#C9A84C" opacity=".35"/>
+    <g transform="translate(148,320)">
+      <rect x="0" y="18" width="42" height="26" rx="3" fill="#6B0F1A" opacity=".8"/>
+      <path d="M21,18 Q14,-3 19,-15 Q17,-3 23,-12 Q25,-1 29,-10 Q27,-1 34,-7 Q28,2 21,18Z" fill="#FF4500"/>
+      <path d="M21,16 Q15,2 19,-9 Q23,2 25,-3 Q23,5 21,16Z" fill="#FFD700"/>
+      <path d="M21,14 Q20,4 21,-3 Q22,4 21,14Z" fill="#FFFACD" opacity=".9"/>
+    </g>
+    <!-- Groom -->
+    <g transform="translate(40,120)">
+      <path d="M28,222 Q20,268 16,340 L54,340 Q56,270 58,230Z" fill="#6B0F1A"/>
+      <path d="M90,222 Q98,268 102,340 L62,340 Q60,270 58,230Z" fill="#5A0010"/>
+      <rect x="22" y="162" width="72" height="72" rx="9" fill="#8B1A2A"/>
+      <rect x="30" y="158" width="56" height="48" rx="7" fill="#A02030"/>
+      <rect x="55" y="158" width="7" height="76" fill="#6B0F1A"/>
+      <circle cx="58" cy="170" r="3" fill="#C9A84C"/><circle cx="58" cy="183" r="3" fill="#C9A84C"/><circle cx="58" cy="196" r="3" fill="#C9A84C"/>
+      <rect x="22" y="158" width="7" height="76" rx="2" fill="#C9A84C" opacity=".5"/>
+      <rect x="87" y="158" width="7" height="76" rx="2" fill="#C9A84C" opacity=".5"/>
+      <path d="M42,158 L58,173 L74,158 Q65,144 58,141 Q51,144 42,158Z" fill="#A02030"/>
+      <rect x="44" y="130" width="28" height="31" rx="9" fill="url(#gs)"/>
+      <ellipse cx="58" cy="100" rx="43" ry="46" fill="url(#gs)"/>
+      <ellipse cx="15" cy="104" rx="8" ry="10" fill="url(#gs)"/>
+      <ellipse cx="101" cy="104" rx="8" ry="10" fill="url(#gs)"/>
+      <ellipse cx="58" cy="70" rx="46" ry="25" fill="#8B1A2A"/>
+      <ellipse cx="58" cy="61" rx="38" ry="18" fill="#A02030"/>
+      <ellipse cx="58" cy="53" rx="30" ry="13" fill="#8B1A2A"/>
+      <circle cx="58" cy="45" r="6" fill="#C9A84C" filter="url(#hg)"/>
+      <circle cx="58" cy="45" r="3" fill="#F5E6B8"/>
+      <line x1="58" y1="39" x2="58" y2="25" stroke="#C9A84C" stroke-width="2"/>
+      <polygon points="58,20 53,32 63,32" fill="#C9A84C" opacity=".85" filter="url(#hg)"/>
+      <path d="M100,70 Q120,59 116,88 Q112,105 96,100" fill="#8B1A2A"/>
+      <ellipse cx="41" cy="100" rx="12" ry="13" fill="white"/><ellipse cx="75" cy="100" rx="12" ry="13" fill="white"/>
+      <circle cx="44" cy="103" r="8" fill="#2a1200"/><circle cx="78" cy="103" r="8" fill="#2a1200"/>
+      <circle cx="44" cy="103" r="5" fill="#1a0900"/><circle cx="78" cy="103" r="5" fill="#1a0900"/>
+      <circle cx="47" cy="100" r="2.5" fill="white" opacity=".95"/><circle cx="81" cy="100" r="2.5" fill="white" opacity=".95"/>
+      <path d="M30,89 Q41,82 52,87" stroke="#1a0900" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <path d="M64,87 Q75,82 86,89" stroke="#1a0900" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <path d="M54,111 Q58,118 62,111" stroke="#b07040" stroke-width="1.8" fill="none"/>
+      <path d="M39,127 Q58,140 77,127" stroke="#8B4513" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M40,124 Q58,118 76,124" stroke="#2d1a00" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <path d="M22,182 Q2,196 7,220" stroke="#8B1A2A" stroke-width="18" stroke-linecap="round" fill="none"/>
+      <path d="M96,182 Q116,194 110,218" stroke="#8B1A2A" stroke-width="18" stroke-linecap="round" fill="none"/>
+      <ellipse cx="5" cy="223" rx="12" ry="10" fill="url(#gs)"/>
+      <ellipse cx="112" cy="221" rx="12" ry="10" fill="url(#gs)"/>
+    </g>
+    <path d="M100,240 Q170,220 240,240" stroke="#8B1A2A" stroke-width="4" fill="none" opacity=".8"/>
+    <circle cx="170" cy="218" r="6" fill="#C9A84C" opacity=".9" filter="url(#hg)"/>
+    <!-- Bride -->
+    <g transform="translate(172,114)">
+      <path d="M12,176 Q-14,236 -26,340 L100,340 Q86,236 56,176Z" fill="#8B1A2A"/>
+      <path d="M-26,340 L100,340 L94,322 Q34,312 -20,322Z" fill="#C9A84C" opacity=".85"/>
+      <circle cx="6" cy="252" r="4.5" fill="#C9A84C" opacity=".55"/>
+      <circle cx="34" cy="285" r="4.5" fill="#C9A84C" opacity=".55"/>
+      <circle cx="62" cy="257" r="4.5" fill="#C9A84C" opacity=".55"/>
+      <rect x="8" y="152" width="50" height="32" rx="6" fill="#6B0F1A"/>
+      <rect x="8" y="152" width="7" height="32" fill="#C9A84C" opacity=".5"/>
+      <rect x="51" y="152" width="7" height="32" fill="#C9A84C" opacity=".5"/>
+      <path d="M-2,152 Q-26,126 -22,88 Q-18,66 -4,58" stroke="#6B0F1A" stroke-width="14" fill="none" opacity=".62" stroke-linecap="round"/>
+      <rect x="20" y="134" width="24" height="23" rx="8" fill="url(#bsk)"/>
+      <ellipse cx="33" cy="100" rx="36" ry="40" fill="url(#bsk)"/>
+      <ellipse cx="-1" cy="104" rx="7" ry="9" fill="url(#bsk)"/>
+      <ellipse cx="67" cy="104" rx="7" ry="9" fill="url(#bsk)"/>
+      <ellipse cx="33" cy="70" rx="36" ry="21" fill="#1a0900"/>
+      <ellipse cx="33" cy="59" rx="28" ry="13" fill="#2a1200"/>
+      <circle cx="33" cy="52" r="13" fill="#1a0900"/>
+      <line x1="33" y1="57" x2="33" y2="71" stroke="#C9A84C" stroke-width="2.2"/>
+      <circle cx="33" cy="73" r="6" fill="#C9A84C" filter="url(#hg)"/>
+      <circle cx="33" cy="73" r="3" fill="#8B1A2A"/>
+      <circle cx="33" cy="81" r="4" fill="#8B1A2A" filter="url(#hg)"/>
+      <circle cx="-1" cy="98" r="5" fill="#C9A84C"/>
+      <line x1="-1" y1="103" x2="-1" y2="118" stroke="#C9A84C" stroke-width="1.8"/>
+      <circle cx="-1" cy="121" r="5" fill="#8B1A2A"/>
+      <circle cx="67" cy="98" r="5" fill="#C9A84C"/>
+      <line x1="67" y1="103" x2="67" y2="118" stroke="#C9A84C" stroke-width="1.8"/>
+      <circle cx="67" cy="121" r="5" fill="#8B1A2A"/>
+      <ellipse cx="17" cy="99" rx="12" ry="13" fill="white"/><ellipse cx="49" cy="99" rx="12" ry="13" fill="white"/>
+      <circle cx="20" cy="102" r="8" fill="#2a1200"/><circle cx="52" cy="102" r="8" fill="#2a1200"/>
+      <circle cx="20" cy="102" r="5" fill="#1a0900"/><circle cx="52" cy="102" r="5" fill="#1a0900"/>
+      <circle cx="23" cy="99" r="2.5" fill="white" opacity=".95"/><circle cx="55" cy="99" r="2.5" fill="white" opacity=".95"/>
+      <path d="M7,91 Q17,84 27,89" stroke="#1a0900" stroke-width="2" fill="none"/>
+      <path d="M41,89 Q51,84 61,91" stroke="#1a0900" stroke-width="2" fill="none"/>
+      <path d="M30,110 Q33,117 36,110" stroke="#b07040" stroke-width="1.6" fill="none"/>
+      <circle cx="41" cy="116" r="4.5" fill="none" stroke="#C9A84C" stroke-width="1.8"/>
+      <path d="M17,126 Q33,138 49,126" stroke="#b06060" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M10,152 Q33,166 56,152" stroke="#C9A84C" stroke-width="3.5" fill="none"/>
+      <circle cx="33" cy="166" r="6" fill="#C9A84C" filter="url(#hg)"/>
+      <path d="M8,165 Q-14,153 -8,178" stroke="#6B0F1A" stroke-width="15" stroke-linecap="round" fill="none"/>
+      <path d="M58,165 Q80,151 74,176" stroke="#6B0F1A" stroke-width="15" stroke-linecap="round" fill="none"/>
+      <ellipse cx="-10" cy="181" rx="11" ry="9" fill="url(#bsk)"/>
+      <ellipse cx="76" cy="179" rx="11" ry="9" fill="url(#bsk)"/>
+      <circle cx="-10" cy="180" r="10" fill="none" stroke="#C9A84C" stroke-width="2.2"/>
+      <circle cx="76" cy="178" r="10" fill="none" stroke="#C9A84C" stroke-width="2.2"/>
+    </g>
+    <text x="18" y="380" font-size="20" opacity=".85">🪔</text>
+    <text x="300" y="378" font-size="20" opacity=".85">🪔</text>
+  </svg>
+  <div class="hnm">Ritu <span class="and">&amp;</span> Ankit</div>
+  <div class="div" style="margin:.8rem 0"><div class="dl"></div><svg width="26" height="26" viewBox="0 0 26 26" style="opacity:.65"><path d="M13,2 Q18,7 16,12 Q14,18 8,20 Q6,13 10,8 Q12,5 13,2Z" fill="#C9A84C"/><circle cx="13" cy="13" r="3" fill="none" stroke="#C9A84C" stroke-width="1"/></svg><div class="dl r"></div></div>
+  <p class="htag">Together with the <strong style="color:#E8C97A">Suryavanshi Family</strong>,<br>we joyfully invite you to celebrate the wedding of<br><span style="font-family:'Noto Serif Devanagari',serif;color:#E8C97A;font-size:1.1em">रितु एवं अंकित</span></p>
+  <div class="hfam">— Suryavanshi Family, Udaipur —</div>
+  <div class="shint"><span>Scroll</span><div class="sarr"></div></div>
+</section>
+<!-- COUNTDOWN -->
+<section id="cd">
+  <div class="sh rv"><span class="slb">Counting Down To</span><h2 class="st">The Celebrations Begin<span class="sti">उत्सव की शुरुआत</span></h2></div>
+  <div class="cdg">
+    <div class="cdb rv d1"><span class="cdn" id="cdd">00</span><span class="cdl">Days / दिन</span></div>
+    <div class="cds">:</div>
+    <div class="cdb rv d2"><span class="cdn" id="cdh">00</span><span class="cdl">Hours / घंटे</span></div>
+    <div class="cds">:</div>
+    <div class="cdb rv d2"><span class="cdn" id="cdm">00</span><span class="cdl">Minutes / मिनट</span></div>
+    <div class="cds">:</div>
+    <div class="cdb rv d3"><span class="cdn" id="cds2">00</span><span class="cdl">Seconds / सेकंड</span></div>
+  </div>
+  <p style="text-align:center;margin-top:1.8rem;font-size:.82rem;color:#6B0F1A;letter-spacing:.15em;font-family:'Cormorant Garamond',serif;font-style:italic">Thursday, 18th June 2026 • 7:00 PM • Govind Palace, Udaipur</p>
+</section>
+<!-- SCHEDULE -->
+<section id="sch">
+  <div class="sh rv"><span class="slb" style="color:#E8C97A">The Celebrations</span><h2 class="st" style="color:#E8C97A">Wedding Schedule<span class="sti">विवाह कार्यक्रम</span></h2></div>
+  <div class="tl">
+    <div class="tli">
+      <div class="tlc"><span class="etg">✦ Event 01</span><div class="enm">Mahila Sangeet</div><span class="enh">महिला संगीत</span>
+        <div class="er"><span class="ic">📅</span><div><strong>Thursday, 18th June 2026</strong><br>गुरुवार, १८ जून २०२६</div></div>
+        <div class="er"><span class="ic">🕖</span><div><strong>7:00 PM Onwards</strong></div></div>
+        <div class="er"><span class="ic">📍</span><div><strong>Govind Palace</strong>, Udaipur</div></div>
+      </div>
+      <div class="tld">🎵</div><div class="tls"></div>
+    </div>
+    <div class="tli">
+      <div class="tls"></div><div class="tld">💍</div>
+      <div class="tlc"><span class="etg">✦ Event 02</span><div class="enm">Sagai Rasam</div><span class="enh">सगाई रस्म</span>
+        <div class="er"><span class="ic">📅</span><div><strong>Friday, 19th June 2026</strong><br>शुक्रवार, १९ जून २०२६</div></div>
+        <div class="er"><span class="ic">🕧</span><div><strong>12:15 PM</strong></div></div>
+        <div class="er"><span class="ic">📍</span><div><strong>Govind Palace</strong>, Udaipur</div></div>
+      </div>
+    </div>
+    <div class="tli">
+      <div class="tlc"><span class="etg">✦ Event 03</span><div class="enm">Blessing Ceremony &amp; Reception</div><span class="enh">आशीर्वाद समारोह एवं रिसेप्शन</span>
+        <div class="er"><span class="ic">📅</span><div><strong>Friday, 19th June 2026</strong><br>शुक्रवार, १९ जून २०२६</div></div>
+        <div class="er"><span class="ic">🕖</span><div><strong>7:00 PM Onwards</strong></div></div>
+        <div class="er"><span class="ic">📍</span><div><strong>Govind Palace</strong>, Udaipur</div></div>
+      </div>
+      <div class="tld">🌺</div><div class="tls"></div>
+    </div>
+    <div class="tli">
+      <div class="tls"></div><div class="tld">🪔</div>
+      <div class="tlc" style="border-color:rgba(201,168,76,.55)"><span class="etg">✦ The Grand Occasion</span><div class="enm" style="color:#E8C97A">Shubh Lagna</div><span class="enh" style="font-size:1.05rem;color:#C9A84C">शुभ लग्न</span>
+        <div class="er"><span class="ic">📅</span><div><strong>Fri 19th — Sat 20th June 2026</strong><br>मध्यरात्रि</div></div>
+        <div class="er"><span class="ic">⭐</span><div><strong style="color:#C9A84C">3:35 AM</strong> — Muhurat</div></div>
+        <div class="er"><span class="ic">📍</span><div><strong>Govind Palace</strong>, Udaipur</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- VENUE -->
+<section id="ven" style="background:linear-gradient(160deg,#F9EFD0,#FDF6E3);padding:5rem 2rem">
+  <div class="sh rv"><span class="slb">Find Your Way</span><h2 class="st">Venue &amp; Location<span class="sti">स्थान</span></h2></div>
+  <div style="max-width:460px;margin:0 auto">
+    <div class="vc rv">
+      <div class="vi">🏰</div>
+      <div class="vn">Govind Palace</div>
+      <p class="va">Royal venue for Sangeet, Sagai,<br>Reception &amp; Shubh Lagna.<br><strong style="color:#F5E6B8">Ubeshwar Road, Gorela, Udaipur, Rajasthan</strong></p>
+      <div style="border-radius:12px;overflow:hidden;margin-bottom:1rem;border:2px solid rgba(201,168,76,.3)">
+        <iframe src="https://maps.google.com/maps?q=Govind+Palace+Ubeshwar+Road+Gorela+Udaipur+Rajasthan&output=embed" width="100%" height="220" style="border:0;display:block" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+      <a class="mbt" href="https://maps.google.com/maps?q=Govind+Palace+Ubeshwar+Road+Gorela+Udaipur+Rajasthan" style="cursor:pointer">🗺️ Open in Google Maps</a>
+    </div>
+  </div>
+</section>
+<!-- BLESSINGS -->
+<section id="bl">
+  <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.04;pointer-events:none" viewBox="0 0 500 500" preserveAspectRatio="xMidYMid slice">
+    <circle cx="250" cy="250" r="240" fill="none" stroke="#C9A84C" stroke-width="1"/>
+    <circle cx="250" cy="250" r="180" fill="none" stroke="#C9A84C" stroke-width=".5"/>
+    <line x1="250" y1="10" x2="250" y2="490" stroke="#C9A84C" stroke-width=".5"/>
+    <line x1="10" y1="250" x2="490" y2="250" stroke="#C9A84C" stroke-width=".5"/>
+    <line x1="80" y1="80" x2="420" y2="420" stroke="#C9A84C" stroke-width=".5"/>
+    <line x1="420" y1="80" x2="80" y2="420" stroke="#C9A84C" stroke-width=".5"/>
+  </svg>
+  <div style="position:relative;z-index:2">
+    <div class="gnt" style="margin-bottom:1.2rem">॥ शुभ विवाह ॥</div>
+    <div class="bln">Ritu &amp; Ankit</div>
+    <div class="blt">"दो दिल, एक डोर — Two hearts, one forever"</div>
+    <div class="dr"><span class="dy">🪔</span><span style="color:#C9A84C;font-size:1.1rem;line-height:1.8">✦</span><span class="dy">🪔</span><span style="color:#C9A84C;font-size:1.1rem;line-height:1.8">✦</span><span class="dy">🪔</span></div>
+    <div class="blb">"आपका आगमन हमारा आशीर्वाद है"<br><span style="font-size:.88em;opacity:.8">Your appearance is a blessing</span></div>
+    <div class="blh" style="margin-top:2rem"><strong>With Best Compliments From:</strong><br>Suryavanshi Family, Udaipur</div>
+    <p style="margin-top:2.5rem;font-size:.68rem;color:rgba(201,168,76,.25);letter-spacing:.15em">✦ With Love &amp; Blessings ✦</p>
+  </div>
+</section>
+<script>
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function animR(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(animR);})();
+let opened=false;
+function openG(){if(opened)return;opened=true;const g=document.getElementById('gate');g.classList.add('gate-open');setTimeout(()=>g.classList.add('gone'),2000);}
+document.getElementById('gate').addEventListener('touchstart',openG);
+const cv=document.getElementById('cvs'),ct=cv.getContext('2d');
+let W=0,H=0;
+function rsz(){W=cv.width=innerWidth;H=cv.height=innerHeight;}rsz();window.addEventListener('resize',rsz);
+const pts=[];const CLR=['#C9A84C','#E8C97A','#8B1A2A','#F5E6B8'];
+function mkP(){return{x:Math.random()*W,y:-20,sz:Math.random()*11+5,vy:Math.random()*1.4+.4,vx:(Math.random()-.5)*.7,rot:Math.random()*360,rs:(Math.random()-.5)*3,op:Math.random()*.55+.15,col:CLR[~~(Math.random()*CLR.length)]}}
+for(let i=0;i<28;i++){const p=mkP();p.y=Math.random()*H;pts.push(p);}
+let af=0;
+(function anim(){ct.clearRect(0,0,W,H);af++;
+pts.forEach((p,i)=>{p.y+=p.vy;p.x+=p.vx+Math.sin(af*.01+i)*.25;p.rot+=p.rs;
+ct.save();ct.translate(p.x,p.y);ct.rotate(p.rot*Math.PI/180);ct.globalAlpha=p.op;ct.fillStyle=p.col;
+ct.beginPath();ct.ellipse(0,0,p.sz/2,p.sz,0,0,Math.PI*2);ct.fill();ct.restore();
+if(p.y>H+30)pts[i]=mkP();});requestAnimationFrame(anim);})();
+const tgt=new Date('2026-06-18T19:00:00');
+function tick(){const diff=tgt-new Date();if(diff<=0){['cdd','cdh','cdm','cds2'].forEach(k=>document.getElementById(k).textContent='00');return;}
+const pad=n=>String(n).padStart(2,'0');
+document.getElementById('cdd').textContent=pad(~~(diff/864e5));
+document.getElementById('cdh').textContent=pad(~~(diff%864e5/36e5));
+document.getElementById('cdm').textContent=pad(~~(diff%36e5/6e4));
+document.getElementById('cds2').textContent=pad(~~(diff%6e4/1e3));}
+tick();setInterval(tick,1000);
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('v');obs.unobserve(x.target);}}),{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv,.tli').forEach(el=>obs.observe(el));
+const secs=['hero','cd','sch','ven','bl'],dots=document.querySelectorAll('.nd'),els=secs.map(id=>document.getElementById(id));
+window.addEventListener('scroll',()=>{const mid=scrollY+innerHeight/2;els.forEach((el,i)=>{if(!el)return;if(mid>=el.offsetTop&&mid<el.offsetTop+el.offsetHeight){dots.forEach(d=>d.classList.remove('a'));dots[i]&&dots[i].classList.add('a');}});});
+function go(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
+
+
+</script>
+</body>
+</html>
