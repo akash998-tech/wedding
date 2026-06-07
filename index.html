@@ -977,13 +977,26 @@
 
 <script>
 // ─── GATE ANIMATION ───
+document.documentElement.scrollTop = 0;
+document.body.scrollTop = 0;
+document.body.style.overflow = 'hidden';
+document.body.style.position = 'fixed';
+document.body.style.top = '0';
+document.body.style.width = '100%';
+
 window.addEventListener('load', () => {
+  window.scrollTo(0, 0);
   setTimeout(() => {
     const overlay = document.getElementById('gate-overlay');
     overlay.classList.add('opened');
     setTimeout(() => {
       overlay.style.pointerEvents = 'none';
       overlay.style.display = 'none';
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      window.scrollTo(0, 0);
     }, 2000);
   }, 800);
 });
